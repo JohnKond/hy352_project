@@ -4,7 +4,7 @@
 #include <vector>
 #include <map>
 
-#define PROGRAM_BEGIN int main() { string tmp; 
+#define PROGRAM_BEGIN int main() { string tmp;
 #define PROGRAM_END ;return 0;}
 
 
@@ -22,7 +22,7 @@
 #define TYPE_OF(json) json.TYPE_OF_ME()
 
 
-#define PRINT ;cout << 
+#define PRINT ;cout <<
 
 #define TRUE type(true);
 #define FALSE type(false);
@@ -30,77 +30,76 @@
 using namespace std;
 
 
-
-class type{
+class type {
 public:
 
 
-    friend ostream &operator<<(ostream &os, type &var){
-    
+    friend ostream &operator<<(ostream &os, type &var) {
 
-        if (var.typeno == 1){
+
+        if (var.typeno == 1) {
             cout << var.get_name() << " : " << var.get_string() << endl;
-        }else if (var.typeno == 2 ){
+        } else if (var.typeno == 2) {
             cout << var.get_name() << " : " << var.get_number() << endl;
-        }else if (var.typeno == 3){
-            cout << var.get_name()<< " : " << var.get_boolean() << endl;
-        }else if(var.typeno == 5){
+        } else if (var.typeno == 3) {
+            cout << var.get_name() << " : " << var.get_boolean() << endl;
+        } else if (var.typeno == 5) {
             cout << "[";
-            for(int i = 0; i < var.get_array().size() ; i++){
-                cout << var.get_array()[i] ;
-                if (i < var.get_array().size()-1)
-                cout << ", ";
+            for (int i = 0; i < var.get_array().size(); i++) {
+                cout << var.get_array()[i];
+                if (i < var.get_array().size() - 1)
+                    cout << ", ";
             }
             cout << "]" << endl;
-        }else if (var.typeno == 4){ 
+        } else if (var.typeno == 4) {
 
-            if(var.get_name() != ""){
+            if (var.get_name() != "") {
                 cout << var.get_name() << ": { \n";
-            }   
-            for(int i = 0; i < var.data.size(); i++){
-               cout <<var.data[i] ;
+            }
+            for (int i = 0; i < var.data.size(); i++) {
+                cout << var.data[i];
             }
 
-            if(var.get_name() != ""){
+            if (var.get_name() != "") {
                 cout << "}" << endl;
             }
         }
 
-    
+
         return os;
     }
 
 
-    friend ostream &operator<<(ostream &os, type *var){
-        if (var->typeno == 1){
+    friend ostream &operator<<(ostream &os, type *var) {
+        if (var->typeno == 1) {
             cout << var->get_name() << " : " << var->get_string() << endl;
-        }else if (var->typeno == 2 ){
+        } else if (var->typeno == 2) {
             cout << var->get_name() << " : " << var->get_number() << endl;
-        }else if (var->typeno == 3){
-            cout << var->get_name()<< " : " << var->get_boolean() << endl;
-        }else if(var->typeno == 5){
+        } else if (var->typeno == 3) {
+            cout << var->get_name() << " : " << var->get_boolean() << endl;
+        } else if (var->typeno == 5) {
             cout << "[";
-            for(int i = 0; i < var->get_array().size() ; i++){
-                cout << var->get_array()[i] ;
-                if (i < var->get_array().size()-1)
-                cout << ", ";
+            for (int i = 0; i < var->get_array().size(); i++) {
+                cout << var->get_array()[i];
+                if (i < var->get_array().size() - 1)
+                    cout << ", ";
             }
             cout << "]" << endl;
-        }else if (var->typeno == 4){ 
+        } else if (var->typeno == 4) {
 
-            if(var->get_name() != ""){
+            if (var->get_name() != "") {
                 cout << var->get_name() << ": { \n";
-            }   
-            for(int i = 0; i < var->data.size(); i++){
-               cout <<var->data[i] ;
+            }
+            for (int i = 0; i < var->data.size(); i++) {
+                cout << var->data[i];
             }
 
-            if(var->get_name() != ""){
+            if (var->get_name() != "") {
                 cout << "}" << endl;
             }
         }
 
-    
+
         return os;
     }
 
@@ -110,15 +109,15 @@ public:
 /* -----------------------------CONSTRUCTORS------------------------- */
 
     // constructor for list
-    type(initializer_list<type> Head){
+    type(initializer_list<type> Head) {
         vector<type>::iterator head_iterator;
         head_iterator = this->data.begin();
-        head_iterator = this->data.insert ( head_iterator , Head );
+        head_iterator = this->data.insert(head_iterator, Head);
         this->set_type(4);
     };
 
     //constructor for empty
-    type(){
+    type() {
         set_type(8);
     };
 
@@ -135,7 +134,6 @@ public:
     };
 
 
-
     //constructor for string
     type(const string &str) {
         name = str;
@@ -150,25 +148,22 @@ public:
 
 /* -------------------------------------------------------------------- */
 
- 
+
 
     type &operator=(type value) {
         // cout << "= operator";
         this->set_type(value.typeno);
-        
-        if (value.typeno == 1){
+
+        if (value.typeno == 1) {
             this->set_string(value.name);
-        }
-        else if (value.typeno == 2 ){
+        } else if (value.typeno == 2) {
             this->set_number(value.number);
-        }
-        else if (value.typeno == 3){
+        } else if (value.typeno == 3) {
             this->set_bool(value.boolean);
-        }
-        else if ( value.typeno == 4){
+        } else if (value.typeno == 4) {
             this->data.push_back(value);
-        }else if (value.typeno == 5){
-            for(int i = 0; i < value.get_array().size() ; i++){
+        } else if (value.typeno == 5) {
+            for (int i = 0; i < value.get_array().size(); i++) {
                 this->arr.push_back(value.get_array()[i]);
             }
         }
@@ -176,26 +171,22 @@ public:
         return *this;
     };
 
-     
+
     type &operator=(type *value) {
         this->set_type(value->typeno);
-        
-        if (value->typeno == 1){
+
+        if (value->typeno == 1) {
             this->set_string(value->name);
-        }
-        else if (value->typeno == 2 ){
+        } else if (value->typeno == 2) {
             cout << "number";
             this->set_number(value->number);
-        }
-        else if (value->typeno == 3){
+        } else if (value->typeno == 3) {
             cout << "boolean";
             this->set_bool(value->boolean);
-        }
-
-        else if (value->typeno == 4 ){
+        } else if (value->typeno == 4) {
             this->data.push_back(value);
-        }else if (value->typeno == 5){
-            for(int i = 0; i < value->get_array().size() ; i++){
+        } else if (value->typeno == 5) {
+            for (int i = 0; i < value->get_array().size(); i++) {
                 this->arr.push_back(value->get_array()[i]);
             }
         }
@@ -203,32 +194,33 @@ public:
     };
 
 
-    type operator[](type *Head){return Head;};
-    type operator[](type Head){return Head;};
+    type operator[](type *Head) { return Head; };
+
+    type operator[](type Head) { return Head; };
 
 
+    type &operator,(type var) {
+        if (var.typeno == 2 && var.name == "") {
 
-
-    type &operator,(type var){
-        if (var.typeno == 2 && var.name == ""){
-            
-            if (arr_empty() == "TRUE"){
+            if (arr_empty() == "TRUE") {
                 this->arr.push_back(get_number());
             }
 
             arr.push_back(var.get_number());
             this->set_type(5);
-        }else if (get_name() != ""){
+        } else if (get_name() != "") {
+            type overload = *this;
             this->clear();
             this->set_type(4);
-            // this->data.push_back(*this);
+            this->data.push_back(overload);
             this->data.push_back(var);
-        }else if (this->get_name() == "" && var.get_name() == ""){
+        } else if (this->get_name() == "" && var.get_name() == "") {
+            type overload = *this;
             this->clear();
             this->set_type(4);
-            // this->data.push_back(*this);
+            this->data.push_back(overload);
             this->data.push_back(var);
-        }else{
+        } else {
             arr.push_back(var.get_number());
             this->set_type(5);
         }
@@ -236,21 +228,22 @@ public:
     }
 
 
-    type &operator,(type *var){
-        if (var->typeno == 2){
-            
-            if (this->arr_empty() == "TRUE"){
+    type &operator,(type *var) {
+        if (var->typeno == 2) {
+
+            if (this->arr_empty() == "TRUE") {
                 arr.push_back(get_number());
             }
 
             arr.push_back(var->get_number());
             this->set_type(5);
-        }else if (get_name() != ""){
+        } else if (get_name() != "") {
+            type overload = *this;
             this->clear();
             this->set_type(4);
-            // this->data.push_back(*this);
+            this->data.push_back(overload);
             this->data.push_back(var);
-        }else{
+        } else {
             arr.push_back(var->get_number());
             this->set_type(5);
         }
@@ -258,64 +251,70 @@ public:
     }
 
 
-
-
-
-
-
     //setters
-    void set_type(int type){
+    void set_type(int type) {
         this->typeno = type;
     }
-    void set_name(string const str){
+
+    void set_name(string const str) {
         this->name = str;
     }
-    void set_string(string const str){
-        this->str =str;
+
+    void set_string(string const str) {
+        this->str = str;
     }
-    void set_number(float const number){
+
+    void set_number(float const number) {
         this->number = number;
     }
-    void set_bool(bool const boolean){
+
+    void set_bool(bool const boolean) {
         this->boolean = boolean;
     }
-    void set_array(vector<float> array){
+
+    void set_array(vector<float> array) {
         arr = array;
     }
     //add to list data
     // void push_data(type data){
-        // this->data.push_back(data);
+    // this->data.push_back(data);
     // }
 
 
     // getters
-    string get_name(){
-        return(this->name);
+    string get_name() {
+        return (this->name);
     }
-    string get_string(){
-        return(this->str);
+
+    string get_string() {
+        return (this->str);
     }
-    float get_number(){
-        return(this->number);
+
+    float get_number() {
+        return (this->number);
     }
-    string get_boolean(){
+
+    string get_boolean() {
         if (this->boolean == 1) return "TRUE";
         return "FALSE";
     }
-    int get_type(){
+
+    int get_type() {
         return this->typeno;
     }
+
     // int getMEMBER(){
-        // return this->isMember;
+    // return this->isMember;
     // }
-    vector<float> get_array(){
+    vector<float> get_array() {
         return this->arr;
     }
-    vector<type> get_data(){
+
+    vector<type> get_data() {
         return this->data;
     }
-    
-    string arr_empty(){
+
+    string arr_empty() {
         if (get_array().size() == 0) return "TRUE";
         return "FALSE";
     }
@@ -332,7 +331,7 @@ public:
 
 
 
-   void clear(){
+    void clear() {
 
         this->set_name("");
         this->set_string("");
@@ -351,32 +350,29 @@ public:
     }
 
 
-
-    string TYPE_OF_ME(){
-        if(this->typeno == 1){
+    string TYPE_OF_ME() {
+        if (this->typeno == 1) {
             return "String";
-        }else if(this->typeno == 2){
+        } else if (this->typeno == 2) {
             return "Number";
-        }else if(this->typeno == 3){
+        } else if (this->typeno == 3) {
             return "Boolean";
-        }else if(this->typeno == 5){
+        } else if (this->typeno == 5) {
             return "Array";
-        }else if(this->typeno == 4 ){ //|| this->typeno == 7){
+        } else if (this->typeno == 4) { //|| this->typeno == 7){
             return "Object";
-        }else{
+        } else {
             return "NULL";
         }
 
     }
 
-   
 
 private:
 
     int typeno = 999;
     vector<type> data;
     vector<float> arr;
-    
 
 
     bool boolean;
