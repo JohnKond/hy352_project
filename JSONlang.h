@@ -14,6 +14,9 @@
 #define NUMBER(name) type(name)
 #define ARRAY type("fok")
 #define OBJECT *new type
+#define SET ;
+#define ASSIGN *=
+
 
 
 // #define SIZE_OF(json) json.SIZE_OF_ME()
@@ -251,6 +254,49 @@ public:
     }
 
 
+    //...
+
+
+    type &operator[](int num){
+
+        if (this->arr_empty() == "FALSE"){
+            if (this->arr.size() > num){
+                this->arr[num] = 999;
+            }
+        }else{
+            type NEW;
+            NEW.hidden = true;
+
+            if (num == 0){
+                data.push_back(NEW);
+            }else{
+                data[num].data.push_back(NEW);
+            }
+        }
+
+        return *this;
+    }
+
+
+
+
+
+
+    type &operator*=(type var) {
+
+        if (get_type() == 5) {
+            cout << "Fok" << endl;
+            for (int i = 0; i < arr.size(); i++) {
+                if (arr[i] == 999) {
+                    arr[i] = var.get_number();
+                    return *this;
+                }
+            }
+        }
+        return *this;
+    }
+
+
     //setters
     void set_type(int type) {
         this->typeno = type;
@@ -326,7 +372,7 @@ public:
     2->Int
     3->Boolean
     4->Object
-    6->Array
+    5->Array
     */
 
 
@@ -335,11 +381,12 @@ public:
 
         this->set_name("");
         this->set_string("");
-        this->set_number(99);
+        this->set_number(999);
         this->set_bool(false);
         this->data.clear();
+        this->arr.clear();
         // this->clearARRAY();
-        this->set_type(99);
+        this->set_type(999);
 
         // isMember = false;
         // hidden = false;
@@ -377,6 +424,7 @@ private:
 
     bool boolean;
     bool isMeme = 1;
+    bool hidden;
     string name = "";
     string str;
     float number;

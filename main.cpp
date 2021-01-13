@@ -41,4 +41,10 @@ PROGRAM_BEGIN
                                             }
                             ]
                     }
-    ]PRINT students PROGRAM_END
+    ]PRINT students
+
+            SET week_temperatures[2] ASSIGN NUMBER(22)
+            PRINT week_temperatures
+
+
+            PROGRAM_END
