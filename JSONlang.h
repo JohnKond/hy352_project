@@ -32,21 +32,34 @@
 
 using namespace std;
 
+enum varType{arithmos, grammata,antikeimeno,pinakas,adeio,boolis,akyro };
+
 
 class type {
+private:
+
+    vector<type> data;
+    vector<float> arr;
+    varType ttype;
+
+
+    bool boolean;
+    bool isMeme = 1;
+    bool hidden;
+    string name = "";
+    string str;
+    float number;
 public:
-
-
     friend ostream &operator<<(ostream &os, type &var) {
 
-
-        if (var.typeno == 1) {
+// Print overload functions
+        if (var.ttype == grammata) {
             cout << var.get_name() << " : " << var.get_string() << endl;
-        } else if (var.typeno == 2) {
+        } else if (var.ttype == arithmos) {
             cout << var.get_name() << " : " << var.get_number() << endl;
-        } else if (var.typeno == 3) {
+        } else if (var.ttype == boolis) {
             cout << var.get_name() << " : " << var.get_boolean() << endl;
-        } else if (var.typeno == 5) {
+        } else if (var.ttype == pinakas) {
             cout << "[";
             for (int i = 0; i < var.get_array().size(); i++) {
                 cout << var.get_array()[i];
@@ -54,7 +67,7 @@ public:
                     cout << ", ";
             }
             cout << "]" << endl;
-        } else if (var.typeno == 4) {
+        } else if (var.ttype == antikeimeno) {
 
             if (var.get_name() != "") {
                 cout << var.get_name() << ": { \n";
@@ -74,13 +87,13 @@ public:
 
 
     friend ostream &operator<<(ostream &os, type *var) {
-        if (var->typeno == 1) {
+        if (var->ttype == grammata) {
             cout << var->get_name() << " : " << var->get_string() << endl;
-        } else if (var->typeno == 2) {
+        } else if (var->ttype == arithmos) {
             cout << var->get_name() << " : " << var->get_number() << endl;
-        } else if (var->typeno == 3) {
+        } else if (var->ttype == boolis) {
             cout << var->get_name() << " : " << var->get_boolean() << endl;
-        } else if (var->typeno == 5) {
+        } else if (var->ttype == pinakas) {
             cout << "[";
             for (int i = 0; i < var->get_array().size(); i++) {
                 cout << var->get_array()[i];
@@ -88,7 +101,7 @@ public:
                     cout << ", ";
             }
             cout << "]" << endl;
-        } else if (var->typeno == 4) {
+        } else if (var->ttype == antikeimeno) {
 
             if (var->get_name() != "") {
                 cout << var->get_name() << ": { \n";
@@ -116,56 +129,56 @@ public:
         vector<type>::iterator head_iterator;
         head_iterator = this->data.begin();
         head_iterator = this->data.insert(head_iterator, Head);
-        this->set_type(4);
+        this->set_type(antikeimeno);
     };
 
     //constructor for empty
     type() {
-        set_type(8);
+        set_type(adeio);
     };
 
     //constructor for integer
     type(const int x) {
         number = x;
-        set_type(2);
+        set_type(arithmos);
     };
 
 
     type(const double x) {
         number = x;
-        set_type(2);
+        set_type(arithmos);
     };
 
 
     //constructor for string
     type(const string &str) {
         name = str;
-        set_type(1);
+        set_type(grammata);
     };
 
     //constructor for boolean
     type(const bool Boolean) {
         boolean = Boolean;
-        set_type(3);
+        set_type(boolis);
     };
 
 /* -------------------------------------------------------------------- */
 
 
-
+// = overload functions
     type &operator=(type value) {
         // cout << "= operator";
-        this->set_type(value.typeno);
+        this->set_type(value.ttype);
 
-        if (value.typeno == 1) {
+        if (value.ttype == grammata) {
             this->set_string(value.name);
-        } else if (value.typeno == 2) {
+        } else if (value.ttype == arithmos) {
             this->set_number(value.number);
-        } else if (value.typeno == 3) {
+        } else if (value.ttype == boolis) {
             this->set_bool(value.boolean);
-        } else if (value.typeno == 4) {
+        } else if (value.ttype == antikeimeno) {
             this->data.push_back(value);
-        } else if (value.typeno == 5) {
+        } else if (value.ttype == pinakas) {
             for (int i = 0; i < value.get_array().size(); i++) {
                 this->arr.push_back(value.get_array()[i]);
             }
@@ -176,19 +189,19 @@ public:
 
 
     type &operator=(type *value) {
-        this->set_type(value->typeno);
+        this->set_type(value->ttype);
 
-        if (value->typeno == 1) {
+        if (value->ttype == grammata) {
             this->set_string(value->name);
-        } else if (value->typeno == 2) {
+        } else if (value->ttype == arithmos) {
             cout << "number";
             this->set_number(value->number);
-        } else if (value->typeno == 3) {
+        } else if (value->ttype == boolis) {
             cout << "boolean";
             this->set_bool(value->boolean);
-        } else if (value->typeno == 4) {
+        } else if (value->ttype == antikeimeno) {
             this->data.push_back(value);
-        } else if (value->typeno == 5) {
+        } else if (value->ttype == pinakas) {
             for (int i = 0; i < value->get_array().size(); i++) {
                 this->arr.push_back(value->get_array()[i]);
             }
@@ -201,54 +214,54 @@ public:
 
     type operator[](type Head) { return Head; };
 
-
+// , (array) overload functions
     type &operator,(type var) {
-        if (var.typeno == 2 && var.name == "") {
+        if (var.ttype == arithmos && var.name == "") {
 
             if (arr_empty() == "TRUE") {
                 this->arr.push_back(get_number());
             }
 
             arr.push_back(var.get_number());
-            this->set_type(5);
+            this->set_type(pinakas);
         } else if (get_name() != "") {
             type overload = *this;
             this->clear();
-            this->set_type(4);
+            this->set_type(antikeimeno);
             this->data.push_back(overload);
             this->data.push_back(var);
         } else if (this->get_name() == "" && var.get_name() == "") {
             type overload = *this;
             this->clear();
-            this->set_type(4);
+            this->set_type(antikeimeno);
             this->data.push_back(overload);
             this->data.push_back(var);
         } else {
             arr.push_back(var.get_number());
-            this->set_type(5);
+            this->set_type(pinakas);
         }
         return *this;
     }
 
 
     type &operator,(type *var) {
-        if (var->typeno == 2) {
+        if (var->ttype == arithmos) {
 
             if (this->arr_empty() == "TRUE") {
                 arr.push_back(get_number());
             }
 
             arr.push_back(var->get_number());
-            this->set_type(5);
+            this->set_type(pinakas);
         } else if (get_name() != "") {
             type overload = *this;
             this->clear();
-            this->set_type(4);
+            this->set_type(antikeimeno);
             this->data.push_back(overload);
             this->data.push_back(var);
         } else {
             arr.push_back(var->get_number());
-            this->set_type(5);
+            this->set_type(pinakas);
         }
         return *this;
     }
@@ -277,15 +290,15 @@ public:
         return *this;
     }
 
+    type &operator[](char *name){
 
-
-
+        return *this;
+    }
 
 
     type &operator*=(type var) {
 
-        if (get_type() == 5) {
-            cout << "Fok" << endl;
+        if (get_type() == pinakas) {
             for (int i = 0; i < arr.size(); i++) {
                 if (arr[i] == 999) {
                     arr[i] = var.get_number();
@@ -297,9 +310,139 @@ public:
     }
 
 
+
+
+
+    // arithmetic overload functions
+
+    type &operator+(type *var) {
+        //... malakies tou typou
+
+        type first = this;
+
+        if (this->get_type() == grammata && var->get_type() == grammata) {
+            this->set_string(first.get_name() + var->get_name());
+        } else if (this->get_type() == arithmos && var->get_type() == arithmos) {
+            this->set_number(first.get_number() + var->get_number());
+        } else if (this->get_type() == antikeimeno && var->get_type() == antikeimeno){
+            for (int i=0; i< var->data.size(); i++){
+                this->data.push_back(var->data[i]);
+            }
+        } else if (this->get_type() == pinakas && var->get_type() == pinakas){
+            for (int i=0; i< var->arr.size(); i++){
+                this->arr.push_back(var->arr[i]);
+            }
+        }
+    }
+
+    type &operator+(type var) {
+        //... malakies tou typou
+
+        type first = *this;
+
+        if (this->get_type() == grammata && var.get_type() == grammata) {
+            this->set_string(this->get_name() + var.get_name());
+        } else if (this->get_type() == arithmos && var.get_type() == arithmos) {
+            this->set_number(this->get_number() + var.get_number());
+        } else if (this->get_type() == antikeimeno && var.get_type() == antikeimeno){
+            for (int i=0; i< var.data.size(); i++){
+                this->data.push_back(var.data[i]);
+            }
+        } else if (this->get_type() == pinakas && var.get_type() == pinakas){
+            for (int i=0; i< var.arr.size(); i++){
+                this->arr.push_back(var.arr[i]);
+            }
+
+        }
+
+        return *this;
+    }
+
+
+    type &operator-(type var) {
+        if (this->get_type() == arithmos && var.get_type() == arithmos) {
+            this->set_number(this->get_number() - var.get_number());
+        }
+        return *this;
+    }
+
+    type &operator*(type var) {
+        if (this->get_type() == arithmos && var.get_type() == arithmos) {
+            this->set_number(this->get_number() * var.get_number());
+        }
+        return *this;
+    }
+
+    type &operator/(type var) {
+        if (this->get_type() == arithmos && var.get_type() == arithmos) {
+            this->set_number(this->get_number() - var.get_number());
+        }
+        return *this;
+    }
+
+    type &operator%(type var) {
+        if (this->get_type() == arithmos && var.get_type() == arithmos) {
+            this->set_number(this->get_number() - var.get_number());
+        }
+        return *this;
+    }
+
+
+
+    //Logical operators
+    type operator&&(type *var){
+        if (this->get_type() == boolis && var->get_type() == boolis){
+            if (this->get_boolean()=="TRUE" && var->get_boolean()=="TRUE")
+                return true;
+            return false;
+        }
+    }
+
+    type operator||(type *var){
+        if (this->get_type() == boolis && var->get_type() == boolis){
+            if (this->get_boolean()=="FALSE" && var->get_boolean()=="FALSE")
+                return false;
+            return true;
+        }
+    }
+
+    type operator!(){
+        if (this->get_type() == boolis) {
+            if (this->get_boolean() == "TRUE") return false;
+            return true;
+        }
+        return false;
+    }
+
+    // Equality operators
+    const bool &operator==(type *var){
+        if(this->get_type() == grammata && var->get_type() == grammata){
+            if (this->get_name() == var->get_name()) return true;
+            else false;
+        }else if (this->get_type() == arithmos && var->get_type() == arithmos) {
+            if (this->get_number() == var->get_number()) return true;
+            return false;
+        }else if (this->get_type() == boolis && var->get_type() == boolis){
+            if (this->get_boolean() == var->get_boolean()) return true;
+            return false;
+        }else if (this->get_type() == antikeimeno && var->get_type() == antikeimeno){
+            if (this->data.size() != var->data.size()) return false;
+
+            // TODO
+
+        }else if (){
+
+            //TODO
+
+        }
+    }
+
+
+
+
     //setters
-    void set_type(int type) {
-        this->typeno = type;
+    void set_type(varType type) {
+        this->ttype = type;
     }
 
     void set_name(string const str) {
@@ -346,7 +489,7 @@ public:
     }
 
     int get_type() {
-        return this->typeno;
+        return this->ttype;
     }
 
     // int getMEMBER(){
@@ -386,7 +529,7 @@ public:
         this->data.clear();
         this->arr.clear();
         // this->clearARRAY();
-        this->set_type(999);
+        // this->set_type(999);
 
         // isMember = false;
         // hidden = false;
@@ -398,15 +541,15 @@ public:
 
 
     string TYPE_OF_ME() {
-        if (this->typeno == 1) {
+        if (this->ttype == grammata) {
             return "String";
-        } else if (this->typeno == 2) {
+        } else if (this->ttype == arithmos) {
             return "Number";
-        } else if (this->typeno == 3) {
+        } else if (this->ttype == boolis) {
             return "Boolean";
-        } else if (this->typeno == 5) {
+        } else if (this->ttype == pinakas) {
             return "Array";
-        } else if (this->typeno == 4) { //|| this->typeno == 7){
+        } else if (this->ttype == antikeimeno) { //|| this->ttype == 7){
             return "Object";
         } else {
             return "NULL";
@@ -415,18 +558,6 @@ public:
     }
 
 
-private:
 
-    int typeno = 999;
-    vector<type> data;
-    vector<float> arr;
-
-
-    bool boolean;
-    bool isMeme = 1;
-    bool hidden;
-    string name = "";
-    string str;
-    float number;
 
 };

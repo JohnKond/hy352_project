@@ -4,6 +4,8 @@ PROGRAM_BEGIN
 
 
     JSON(var) = NUMBER(23)JSON(name) = STRING("hello")JSON(x) = FALSE
+            JSON(var2) = NUMBER(2)
+    JSON(foods) = ARRAY[STRING("Makaronia"),STRING("Keftedes")]
 
     PRINT name PRINT var PRINT x JSON(obj) = OBJECT{}JSON(book) = OBJECT{
             KEY(title) : STRING("Gone Girl"),
@@ -45,6 +47,17 @@ PROGRAM_BEGIN
 
             SET week_temperatures[2] ASSIGN NUMBER(22)
             PRINT week_temperatures
+
+
+            JSON(fok) = NUMBER(23) - NUMBER(2)*NUMBER(2)
+                    PRINT fok
+
+                    JSON(str) = STRING("KO") + STRING("NDO")
+                            PRINT str
+
+//            SET foods[1] ASSIGN STRING("fokia")
+//            PRINT foods
+
 
 
             PROGRAM_END
