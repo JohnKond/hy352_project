@@ -313,6 +313,8 @@ public:
 
 
 
+
+
     // arithmetic overload functions
 
     type &operator+(type *var) {
@@ -389,22 +391,28 @@ public:
 
 
 
+
+
     //Logical operators
-    type operator&&(type *var){
-        if (this->get_type() == boolis && var->get_type() == boolis){
-            if (this->get_boolean()=="TRUE" && var->get_boolean()=="TRUE")
+
+    type operator&&(type var){
+        if (this->get_type() == boolis && var.get_type() == boolis){
+            if (this->get_boolean()=="TRUE" && var.get_boolean()=="TRUE")
                 return true;
             return false;
         }
     }
 
-    type operator||(type *var){
-        if (this->get_type() == boolis && var->get_type() == boolis){
-            if (this->get_boolean()=="FALSE" && var->get_boolean()=="FALSE")
+
+    type operator||(type var){
+        if (this->get_type() == boolis && var.get_type() == boolis){
+            if (this->get_boolean()=="FALSE" && var.get_boolean()=="FALSE")
                 return false;
             return true;
         }
     }
+
+
 
     type operator!(){
         if (this->get_type() == boolis) {
@@ -415,27 +423,50 @@ public:
     }
 
     // Equality operators
-    const bool &operator==(type *var){
-        if(this->get_type() == grammata && var->get_type() == grammata){
-            if (this->get_name() == var->get_name()) return true;
+    const bool &operator==(type var){
+        if(this->get_type() == grammata && var.get_type() == grammata){
+            if (this->get_name() == var.get_name()) return true;
             else false;
-        }else if (this->get_type() == arithmos && var->get_type() == arithmos) {
-            if (this->get_number() == var->get_number()) return true;
+        }else if (this->get_type() == arithmos && var.get_type() == arithmos) {
+            if (this->get_number() == var.get_number()) return true;
             return false;
-        }else if (this->get_type() == boolis && var->get_type() == boolis){
-            if (this->get_boolean() == var->get_boolean()) return true;
+        }else if (this->get_type() == boolis && var.get_type() == boolis){
+            if (this->get_boolean() == var.get_boolean()) return true;
             return false;
-        }else if (this->get_type() == antikeimeno && var->get_type() == antikeimeno){
-            if (this->data.size() != var->data.size()) return false;
-
-            // TODO
-
-        }else if (){
-
-            //TODO
-
+        }else if (this->get_type() == antikeimeno && var.get_type() == antikeimeno){
+            //compare vectors
+//            if (this->data == var.data) return true;
+            return false;
+        }else if (this->get_type() == pinakas && var.get_type() == pinakas){
+            //compare arrays
+//            if (this->arr == var.arr) return true;
+            return false;
         }
     }
+
+
+    const bool &operator!=(type var){
+        if(this->get_type() == grammata && var.get_type() == grammata){
+            if (this->get_name() != var.get_name()) return true;
+            else false;
+        }else if (this->get_type() == arithmos && var.get_type() == arithmos) {
+            if (this->get_number() != var.get_number()) return true;
+            return false;
+        }else if (this->get_type() == boolis && var.get_type() == boolis){
+            if (this->get_boolean() != var.get_boolean()) return true;
+            return false;
+        }else if (this->get_type() == antikeimeno && var.get_type() == antikeimeno){
+            //compare vectors
+//            if (this->data == var.data) return true;
+            return false;
+        }else if (this->get_type() == pinakas && var.get_type() == pinakas){
+            //compare arrays
+//            if (this->arr == var.arr) return true;
+            return false;
+        }
+    }
+
+
 
 
 

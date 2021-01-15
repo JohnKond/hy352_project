@@ -5,10 +5,15 @@ PROGRAM_BEGIN
 
     JSON(var) = NUMBER(23)JSON(name) = STRING("hello")JSON(x) = FALSE
             JSON(var2) = NUMBER(2)
-    JSON(foods) = ARRAY[STRING("Makaronia"),STRING("Keftedes")]
+    JSON(kon) = TRUE
+            JSON(lamp) = FALSE
+    JSON(krap) = kon && !lamp
+            PRINT "krap is "
+            PRINT krap
 
     PRINT name PRINT var PRINT x JSON(obj) = OBJECT{}JSON(book) = OBJECT{
             KEY(title) : STRING("Gone Girl"),
+            KEY(fok) : kon && lamp,
             KEY(published) : NUMBER(2013),
             KEY(movie_type) : STRING("Thriller"),
             KEY(author) : OBJECT{
