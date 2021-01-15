@@ -8,8 +8,8 @@ PROGRAM_BEGIN
     JSON(kon) = TRUE
             JSON(lamp) = FALSE
     JSON(krap) = kon && !lamp
-            PRINT "krap is "
-            PRINT krap
+
+
 
     PRINT name PRINT var PRINT x JSON(obj) = OBJECT{}JSON(book) = OBJECT{
             KEY(title) : STRING("Gone Girl"),
@@ -21,7 +21,10 @@ PROGRAM_BEGIN
                     KEY(surname) : STRING("FLYNN"),
                     KEY(age) : NUMBER(45),
             }
-    }PRINT book JSON(week_temperatures) = ARRAY[
+    }PRINT book
+            PRINT HAS_KEY(book,"fak")
+            PRINT SIZE_OF(book)
+            JSON(week_temperatures) = ARRAY[
                     NUMBER(20), NUMBER(19.5), NUMBER(19), NUMBER(20),
                     NUMBER(19), NUMBER(18.5), NUMBER(19)]PRINT week_temperatures JSON(students) = ARRAY[
                     OBJECT{

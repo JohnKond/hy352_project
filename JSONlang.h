@@ -16,13 +16,11 @@
 #define OBJECT *new type
 #define SET ;
 #define ASSIGN *=
-
-
-
-// #define SIZE_OF(json) json.SIZE_OF_ME()
-// #define IS_EMPTY(json) json.IS_EMPTY_ME()
-// #define HAS_KEY(json,key) json.HAS_KEY_ME(key)
-#define TYPE_OF(json) json.TYPE_OF_ME()
+#define endl "\n"
+#define IS_EMPTY(var) var.is_empty()
+#define HAS_KEY(json,key) json.has_key(key)
+#define TYPE_OF(var) var.get_typeName()
+#define SIZE_OF(var) var.get_size()
 
 
 #define PRINT ;cout <<
@@ -32,7 +30,13 @@
 
 using namespace std;
 
-enum varType{arithmos, grammata,antikeimeno,pinakas,adeio,boolis,akyro };
+enum varType{arithmos,grammata,antikeimeno,pinakas,adeio,boolis,akyro};
+
+
+
+
+
+
 
 
 class type {
@@ -42,14 +46,21 @@ private:
     vector<float> arr;
     varType ttype;
 
-
     bool boolean;
     bool isMeme = 1;
     bool hidden;
     string name = "";
     string str;
     float number;
+
 public:
+
+
+
+
+
+
+
     friend ostream &operator<<(ostream &os, type &var) {
 
 // Print overload functions
@@ -523,6 +534,9 @@ public:
         return this->ttype;
     }
 
+
+
+
     // int getMEMBER(){
     // return this->isMember;
     // }
@@ -570,23 +584,53 @@ public:
 
     }
 
-
-    string TYPE_OF_ME() {
+    string get_typeName(){
         if (this->ttype == grammata) {
-            return "String";
+            return "string";
         } else if (this->ttype == arithmos) {
-            return "Number";
+            return "number";
         } else if (this->ttype == boolis) {
-            return "Boolean";
+            return "boolean";
         } else if (this->ttype == pinakas) {
-            return "Array";
-        } else if (this->ttype == antikeimeno) { //|| this->ttype == 7){
-            return "Object";
+            return "array";
+        } else if (this->ttype == antikeimeno) {
+            return "object";
         } else {
-            return "NULL";
+            return "null";
         }
-
     }
+
+    int get_size(){
+        if (this->ttype == antikeimeno) return this->data.size();
+        else if (this->ttype == pinakas) return this->arr.size();
+        return 1;
+    }
+
+    bool is_empty(){
+        if (this->ttype == antikeimeno){
+            if (this->data.size() == 0) return true;
+            return false;
+        }else if (this->ttype == pinakas){
+            if (this->arr.size() == 0) return true;
+            return false;
+        }
+        return false;
+    }
+
+    bool has_key(string key){
+        if (this->ttype == antikeimeno){
+            for (int i=0; i<this->data.size(); i++){
+                if (this->data[i].name == key) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+
+
+
 
 
 
